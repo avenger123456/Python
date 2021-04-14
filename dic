@@ -1,0 +1,39 @@
+data = {
+        'python': {'上学期': '90', '下学期': '95'},
+        'c++': ['95', '96', '97'],
+        'java': [{'月考':'90', '期中考试': '94', '期末考试': '98'}]
+        }
+各门课程的考试成绩存储方式并不相同，有的用字典，有的用列表，但是分数都是字符串类型，请实现函数transfer_score(score_dict)，将分数修改成int类型
+
+
+import pprint
+
+
+def transfer_score(data):
+    # 如果data是字典
+    if isinstance(data, dict):
+        for key, value in data.items():
+            data[key] = transfer_score(value)
+        return data
+
+    # 如果data 是列表
+    if isinstance(data, list):
+        data_lst = []
+        for item in data:
+            data_lst.append(transfer_score(item))
+
+        return data_lst
+
+    if isinstance(data, str):
+        return int(data)
+
+
+if __name__ == '__main__':
+    data = {
+        'python': {'上学期': '90', '下学期': '95'},
+        'c++': ['95', '96', '97'],
+        'java': [{'月考': '90', '期中考试': '94', '期末考试': '98'}]
+    }
+
+    data = transfer_score(data)
+    pprint.pprint(data)
